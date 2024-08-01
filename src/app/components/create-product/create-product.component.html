@@ -1,0 +1,85 @@
+<div class="create-product-container">
+    <div class="div-test">
+        <h2>
+            Formulario de Registro
+        </h2>
+    </div>
+    <hr color="black" width="100%">
+    <form [formGroup]="productForm!">
+        <div class="form-element">
+            <label for="id">ID</label>
+            <input type="text" id="id" [class]="(id.invalid && id.touched) ? 'form-control-invalid' : 'form-control'"
+                formControlName="id" />
+            @if (id.invalid && id.touched) {
+            <div class="form-control-error">
+                <p>{{ errorMessage('id', 'ID') }}</p>
+            </div>
+            }
+        </div>
+        <div class="form-element">
+            <label for="name">Nombre</label>
+            <input type="text" id="name"
+                [class]="(name.invalid && name.touched) ? 'form-control-invalid' : 'form-control'"
+                formControlName="name" />
+            @if (name.invalid && name.touched) {
+            <div class="form-control-error">
+                <p>{{ errorMessage('name', 'Nombre') }}</p>
+            </div>
+            }
+        </div>
+        <div class="form-element">
+            <label for="description">Descripción</label>
+            <input type="text" id="description"
+                [class]="(description.invalid && description.touched) ? 'form-control-invalid' : 'form-control'"
+                formControlName="description" />
+            @if (description.invalid && description.touched) {
+            <div class="form-control-error">
+                <p>{{ errorMessage('description', 'Descripción') }}</p>
+            </div>
+            }
+        </div>
+        <div class="form-element">
+            <label for="logo">Logo</label>
+            <input type="text" id="logo"
+                [class]="(logo.invalid && logo.touched) ? 'form-control-invalid' : 'form-control'"
+                formControlName="logo" />
+            @if (logo.invalid && logo.touched) {
+            <div class="form-control-error">
+                <p>{{ errorMessage('logo', 'Logo') }}</p>
+            </div>
+            }
+        </div>
+        <div class="form-element">
+            <label for="date_release">Fecha Liberación</label>
+            <input type="date" id="date_release"
+                [class]="(date_release.invalid && date_release.touched) ? 'form-control-invalid' : 'form-control'"
+                formControlName="date_release" />
+            @if (date_release.invalid && date_release.touched) {
+            <div class="form-control-error">
+                <p>{{ errorMessage('date_release', 'Fecha Liberación') }}</p>
+            </div>
+            }
+        </div>
+        <div class="form-element">
+            <label for="date_revision">Fecha Revisión</label>
+            <input type="date" id="date_revision"
+                [class]="(date_revision.invalid && date_revision.touched) ? 'form-control-invalid' : 'form-control'"
+                formControlName="date_revision" />
+            @if (date_revision.invalid && date_revision.touched) {
+            <div class="form-control-error">
+                <p>{{ errorMessage('date_revision', 'Fecha Revisión') }}</p>
+            </div>
+            }
+        </div>
+    </form>
+    <div class="buttons-container">
+        <button class="restart-button" [disabled]="loading()" (click)="resetForm()">Reiniciar</button>
+        <button class="send-button" [disabled]="loading()" type="submit" (click)="handleSubmit()">Enviar</button>
+    </div>
+    @if(loading()) {
+        <p class="loading-message">Cargando...</p>
+    }
+    @if (showMessage()) {
+        <p class="successful-message">Producto registrado!</p>
+    }
+</div>
