@@ -1,0 +1,15 @@
+.search-add-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block: .5rem;
+}
+
+button {
+    color: #384b77;
+    font-weight: bold;
+    background-color: #fdf2ac;
+    border: none;
+    padding-block: .8rem;
+    padding-inline: .8rem;
+}

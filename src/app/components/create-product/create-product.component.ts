@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnDestroy, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import checkFormErrors from '../../shared/utils/checkFormErrors';
@@ -15,15 +15,16 @@ import { Subject, takeUntil, tap } from 'rxjs';
   templateUrl: './create-product.component.html',
   styleUrl: './create-product.component.css'
 })
-export class CreateProductComponent implements OnDestroy{
+export class CreateProductComponent {
 
   public productForm: FormGroup | undefined;
-  public errorMessage: any;
+  public controlErrorMessage: any;
   public showMessage = signal<boolean>(false);
+  public showMessageError = signal<boolean>(false);
+  public errorMessage = signal<string>('');
   public loading = signal<boolean>(false);
 
-  private destroyed = new Subject();
-
+  private destroyRef = inject(DestroyRef);
   private productService = inject(ProductsService);
   private fb = inject(FormBuilder);
 
@@ -41,7 +42,7 @@ export class CreateProductComponent implements OnDestroy{
       }
     );
 
-    this.errorMessage = checkFormErrors(this.productForm);
+    this.controlErrorMessage = checkFormErrors(this.productForm);
 
   }
 
@@ -51,30 +52,24 @@ export class CreateProductComponent implements OnDestroy{
       return;
     }
     this.loading.set(true);
-
-    console.log("this.productForm?.value: ", this.productForm?.value)
     this.productService.createProduct(this.productForm?.value)
       .pipe(
-        takeUntil(this.destroyed),
+        takeUntilDestroyed(this.destroyRef),
         tap(() => {
           this.loading.set(false);
           this.showSuccesfulMessage();
         })
       )
       .subscribe({
-        next: (response) => {
-          console.log("product created response: ", response);
+        next: () => {
           this.productForm?.reset();
         },
         error: (err) => {
-          console.log("product creation error: ", err);
+          this.showErrorMessage();
+          this.errorMessage.set(err.error.message);
+          this.loading.set(false);
         }
       })
-  }
-
-  ngOnDestroy(): void {
-    this.destroyed.next(null);
-    this.destroyed.complete();
   }
 
   showSuccesfulMessage() {
@@ -82,6 +77,13 @@ export class CreateProductComponent implements OnDestroy{
     setTimeout(() => {
       this.showMessage.set(false);
     }, 3000);
+  }
+
+  showErrorMessage() {
+    this.showMessageError.set(true);
+    setTimeout(() => {
+      this.showMessageError.set(false);
+    }, 4000)
   }
 
   resetForm(): void {

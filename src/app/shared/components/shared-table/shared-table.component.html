@@ -1,1 +1,39 @@
-<p>shared-table works!</p>
+<!-- product-table.component.html -->
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                @for (col of columns(); track $index) {
+                <th>
+                    {{ col.header }}
+                </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of listToBeShown(); track $index) {
+            <tr>
+                @for (col of columns(); track $index) {
+                <td>
+                    @if(isImageUrl(item[col.field])) {
+                    <img [src]="item[col.field]" alt="A small logo" width="40" height="40" />
+                    } @else {
+                    <div>{{ item[col.field] }}</div>
+                    }
+                </td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div class="table-footer">
+        <div class="reuslts">Results: {{ listOfData().length }}</div>
+        <div class="paginator">
+            <select (change)="changePagination($event)">
+                @for(number of paginationOptions(); track $index) {
+                    <option [value]="number" [defaultSelected]="defaultNumberOfRows === number">{{ number }}</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>

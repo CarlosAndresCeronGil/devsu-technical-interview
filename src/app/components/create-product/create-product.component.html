@@ -12,7 +12,7 @@
                 formControlName="id" />
             @if (id.invalid && id.touched) {
             <div class="form-control-error">
-                <p>{{ errorMessage('id', 'ID') }}</p>
+                <p>{{ controlErrorMessage('id', 'ID') }}</p>
             </div>
             }
         </div>
@@ -23,7 +23,7 @@
                 formControlName="name" />
             @if (name.invalid && name.touched) {
             <div class="form-control-error">
-                <p>{{ errorMessage('name', 'Nombre') }}</p>
+                <p>{{ controlErrorMessage('name', 'Nombre') }}</p>
             </div>
             }
         </div>
@@ -34,7 +34,7 @@
                 formControlName="description" />
             @if (description.invalid && description.touched) {
             <div class="form-control-error">
-                <p>{{ errorMessage('description', 'Descripción') }}</p>
+                <p>{{ controlErrorMessage('description', 'Descripción') }}</p>
             </div>
             }
         </div>
@@ -45,7 +45,7 @@
                 formControlName="logo" />
             @if (logo.invalid && logo.touched) {
             <div class="form-control-error">
-                <p>{{ errorMessage('logo', 'Logo') }}</p>
+                <p>{{ controlErrorMessage('logo', 'Logo') }}</p>
             </div>
             }
         </div>
@@ -56,7 +56,7 @@
                 formControlName="date_release" />
             @if (date_release.invalid && date_release.touched) {
             <div class="form-control-error">
-                <p>{{ errorMessage('date_release', 'Fecha Liberación') }}</p>
+                <p>{{ controlErrorMessage('date_release', 'Fecha Liberación') }}</p>
             </div>
             }
         </div>
@@ -67,7 +67,7 @@
                 formControlName="date_revision" />
             @if (date_revision.invalid && date_revision.touched) {
             <div class="form-control-error">
-                <p>{{ errorMessage('date_revision', 'Fecha Revisión') }}</p>
+                <p>{{ controlErrorMessage('date_revision', 'Fecha Revisión') }}</p>
             </div>
             }
         </div>
@@ -81,5 +81,8 @@
     }
     @if (showMessage()) {
         <p class="successful-message">Producto registrado!</p>
+    }
+    @if(showMessageError()) {
+        <p class="error-message">{{ 'ERROR: ' + errorMessage() }}</p>
     }
 </div>

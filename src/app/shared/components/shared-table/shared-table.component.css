@@ -1,0 +1,33 @@
+.table-container {
+    background-color: white;
+    padding: .2rem;
+    max-width: calc(900px + 100vw - 1024px);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px 25px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+img {
+    border-radius: 50%;
+}
+
+th {
+    background-color: #f9fafc;
+}
+
+.table-footer {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    margin: .5rem;
+}

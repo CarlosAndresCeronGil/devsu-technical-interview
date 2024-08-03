@@ -50,6 +50,7 @@ form {
 .form-control-error {
     color: #e35f5f;
     font-weight: bold;
+    max-width: 10rem;
 }
 
 .buttons-container {
@@ -84,6 +85,11 @@ form {
 .successful-message {
     font-size: 1.5em;
     color: #384b77;
+}
+
+.error-message {
+    font-size: 1em;
+    color: #a82a2a;
 }
 
 @media (max-width: 500px) {

@@ -7,13 +7,11 @@ export default function checkFormErrors(formGroup: FormGroup) {
         }
         if(formGroup!.get(controlReference)?.errors!['minlength']) {
             return `${showNamingReference} debe tener al menos
-            ${formGroup!.get(controlReference)?.errors!['minlength'].requiredLength}
-            caracteres`;
+            ${formGroup!.get(controlReference)?.errors!['minlength'].requiredLength} caracteres`;
         }
         if(formGroup!.get(controlReference)?.errors!['maxlength']) {
             return `${showNamingReference} debe tener maximo
-            ${formGroup!.get(controlReference)?.errors!['maxlength'].requiredLength}
-            caracteres`;
+            ${formGroup!.get(controlReference)?.errors!['maxlength'].requiredLength} caracteres`;
         }
         if(formGroup!.get(controlReference)?.errors!['dateReleaseInvalid']) {
             return `${showNamingReference} debe ser mayor o igual a la fecha actual`;

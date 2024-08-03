@@ -1,3 +1,15 @@
-<p>Search bar</p>
-<button (click)="handleAddProduct()">Agregar</button>
-<app-shared-table></app-shared-table>
+<div class="search-add-button-container">
+    <input
+        type="text"
+        placeholder="Search..."
+        [(ngModel)]="filterString"
+    />
+    <button (click)="handleAddProduct()">Agregar</button>
+</div>
+@if (loading()) {
+    <h2>
+        Cargando productos...
+    </h2>
+} @else {
+    <app-shared-table [listCriteria]="filterString" [listOfData]="listOfProducts()" [columns]="productColumns()"></app-shared-table>
+}
